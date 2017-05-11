@@ -58,6 +58,8 @@ class KMSAccount
 		void enable_key(const string & KeyId);
 		void disable_key(const string & KeyId);
 		void list_key(vector<string> & keyIds, const int offset= 0 , const int limit = 10);
+        void schedule_key_deletion(const string &KeyId, unsigned int pendingWindowInDays);
+        void cancel_key_deletion(const string &KeyId);
 		void set_sign_method(const string & sign_method="sha1"){this->client.setSignMethod(sign_method);};
 	protected:
 		KMSClient client;

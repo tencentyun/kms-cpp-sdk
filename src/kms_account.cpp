@@ -285,6 +285,46 @@ namespace kms {
 		for(unsigned int i = 0 ; i< valueKeys.size(); ++i)
 			keyIds.push_back(valueKeys[i]["keyId"].asString());
 	}
+	/*
+	 * schedule key deletion           enable the custom key
+	 * @KeyId              the custom key id
+     * @pendingWindowInDays 
+	 * return              void
+	 */
+    void KMSAccount::schedule_key_deletion(const string & KeyId,unsigned int pendingWindowInDays)
+	{
+		map<string ,string> param;
+		param["keyId"] = KeyId;
+        param["pendingWindowInDays"] = pendingWindowInDays;
+		string result = this->client.call("ScheduleKeyDeletion",param);
+		Json::Reader reader ;
+		Json::Value value ;
+		if (!reader.parse(result, value))
+			throw KMSClientException("Json parse failed");
+		int code = value["code"].asInt();
+		if (code != 0)
+			throw KMSServerException(code, value["message"].asString(), value["requestId"].asString());
+
+	}
+	/*
+	 * cancel key deletion           enable the custom key
+	 * @KeyId              the custom key id
+	 * return              void
+	 */
+	void KMSAccount::cancel_key_deletion(const string & KeyId)
+	{
+		map<string ,string> param;
+		param["keyId"] = KeyId;
+		string result = this->client.call("CancelKeyDeletion",param);
+		Json::Reader reader ;
+		Json::Value value ;
+		if (!reader.parse(result, value))
+			throw KMSClientException("Json parse failed");
+		int code = value["code"].asInt();
+		if (code != 0)
+			throw KMSServerException(code, value["message"].asString(), value["requestId"].asString());
+
+	}
 
 
 }

@@ -76,6 +76,7 @@ namespace kms {
 		meta.Description = MetaValue["description"].asString();
 		meta.KeyState = MetaValue["keyState"].asString();
 		meta.KeyUsage = MetaValue["keyUsage"].asString();
+		meta.DeleteTime = MetaValue["deleteTime"].asInt();
 	}
     /*
      * generate_data_key   generate_data_key by the custom master key
@@ -193,6 +194,7 @@ namespace kms {
 		meta.Description = MetaValue["description"].asString();
 		meta.KeyState = MetaValue["keyState"].asString();
 		meta.KeyUsage = MetaValue["keyUsage"].asString();
+		meta.DeleteTime = MetaValue["deleteTime"].asInt();
 
 	}
 	/*

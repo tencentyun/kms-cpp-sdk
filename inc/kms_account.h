@@ -31,6 +31,7 @@ public:
 	KeyMetadata():
 	KeyId(""),
 	CreateTime(-1),
+	DeleteTime(-1),
 	Description(""),
 	KeyState(""),
 	KeyUsage(""),
@@ -38,10 +39,12 @@ public:
 	{}
 	string KeyId;
 	int CreateTime;
+	int DeleteTime;
 	string Description;
 	string KeyState;
 	string KeyUsage;
 	string Alias ;
+
 };
 
 class KMSAccount

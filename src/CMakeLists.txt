@@ -11,7 +11,7 @@ SET(CMAKE_CXX_FLAGES_RELEASE"${CMAKE_CXX_FLAGES} -O0   -pipe -Wall -fno-strict-a
 
 INCLUDE_DIRECTORIES(../inc/)
 
-SET(LIBRARY libcurl.so libssl.so)
+SET(LIBRARY libcurl.so libssl.so libcrypto.so)
 
 AUX_SOURCE_DIRECTORY(. SRC)
 ADD_LIBRARY(KMS SHARED ${SRC})

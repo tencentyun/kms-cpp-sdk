@@ -298,7 +298,7 @@ namespace kms {
 		{
 			map<string ,string > param;
 			param["keyId"] =keyId;
-			param["pendingWindowInDays"] = pendingWindowInDays;
+			param["pendingWindowInDays"] = kms::int2str(pendingWindowInDays);
 			string result = this->client.call("ScheduleKeyDeletion",param);
 			Json::Reader reader ;
 			Json::Value value ;

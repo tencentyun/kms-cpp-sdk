@@ -73,7 +73,7 @@ int main(int argc, char **argv)
     	  // enable a custom key
     	  account.enable_key(meta.KeyId);
     	  // schedule key deletion
-    	  account.schedule_key_deletion(meta.KeyId);
+    	  account.schedule_key_deletion(meta.KeyId, 7);
     	  //cancel key deletion
     	  account.cancel_key_deletion(meta.KeyId);
     	  //list keys

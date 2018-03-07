@@ -31,6 +31,7 @@ public:
 	KeyMetadata():
 	KeyId(""),
 	CreateTime(-1),
+	DeleteTime(-1),
 	Description(""),
 	KeyState(""),
 	KeyUsage(""),
@@ -38,10 +39,12 @@ public:
 	{}
 	string KeyId;
 	int CreateTime;
+	int DeleteTime;
 	string Description;
 	string KeyState;
 	string KeyUsage;
 	string Alias ;
+
 };
 
 class KMSAccount
@@ -58,6 +61,8 @@ class KMSAccount
 		void enable_key(const string & KeyId);
 		void disable_key(const string & KeyId);
 		void list_key(vector<string> & keyIds, const int offset= 0 , const int limit = 10);
+		void cancel_key_deletion(string keyId );
+		void schedule_key_deletion(string keyId, unsigned int pendingWindowInDays );
 		void set_sign_method(const string & sign_method="sha1"){this->client.setSignMethod(sign_method);};
 	protected:
 		KMSClient client;

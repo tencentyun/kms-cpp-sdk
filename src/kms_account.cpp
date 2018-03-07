@@ -76,6 +76,7 @@ namespace kms {
 		meta.Description = MetaValue["description"].asString();
 		meta.KeyState = MetaValue["keyState"].asString();
 		meta.KeyUsage = MetaValue["keyUsage"].asString();
+		meta.DeleteTime = MetaValue["deleteTime"].asInt();
 	}
     /*
      * generate_data_key   generate_data_key by the custom master key
@@ -193,6 +194,7 @@ namespace kms {
 		meta.Description = MetaValue["description"].asString();
 		meta.KeyState = MetaValue["keyState"].asString();
 		meta.KeyUsage = MetaValue["keyUsage"].asString();
+		meta.DeleteTime = MetaValue["deleteTime"].asInt();
 
 	}
 	/*
@@ -286,5 +288,46 @@ namespace kms {
 			keyIds.push_back(valueKeys[i]["keyId"].asString());
 	}
 
+	/*
+		 * schedule key deletion
+         * @keyId
+         * @pendingWindowInDays
+		 * return             void
+		 */
+		void KMSAccount::schedule_key_deletion(string keyId, unsigned int pendingWindowInDays )
+		{
+			map<string ,string > param;
+			param["keyId"] =keyId;
+			param["pendingWindowInDays"] = kms::int2str(pendingWindowInDays);
+			string result = this->client.call("ScheduleKeyDeletion",param);
+			Json::Reader reader ;
+			Json::Value value ;
+			if (!reader.parse(result, value))
+				throw KMSClientException("Json parse failed");
+			int code = value["code"].asInt();
+			if (code != 0)
+				throw KMSServerException(code, value["message"].asString(), value["requestId"].asString());
+
+		}
+
+		/*
+			 * cancel_key_deletion
+             * @keyId
+			 * return             void
+		*/
+		void KMSAccount::cancel_key_deletion(string keyId )
+		{
+				map<string ,string > param;
+				param["keyId"] =keyId;
+				string result = this->client.call("CancelKeyDeletion",param);
+				Json::Reader reader ;
+				Json::Value value ;
+				if (!reader.parse(result, value))
+					throw KMSClientException("Json parse failed");
+				int code = value["code"].asInt();
+				if (code != 0)
+					throw KMSServerException(code, value["message"].asString(), value["requestId"].asString());
+
+		}
 
 }
